@@ -28,6 +28,8 @@
             <option value="gc">GC - $10.00 per tick</option>
             <option value="mcl">MCL - $0.50 per tick</option>
             <option value="cl">CL - $10.00 per tick</option>
+            <option value="es">ES - $12.50 per tick</option>
+            <option value="mes">MES - $1.25 per tick</option>
           </select>
         </div>
         <div>
@@ -128,10 +130,17 @@
         const stopLoss = parseFloat(document.getElementById("stopLoss").value);
         const stopLossType = document.getElementById("stopLossType").value;
 
-        if (isNaN(buffer) || isNaN(days) || isNaN(stopLoss)) {
+        if (
+          isNaN(buffer) ||
+          isNaN(days) ||
+          isNaN(stopLoss) ||
+          buffer <= 0 ||
+          days <= 0 ||
+          stopLoss <= 0
+        ) {
           document.getElementById(
             "modal-content"
-          ).innerHTML = `<p>Please fill in all fields.</p>`;
+          ).innerHTML = `<p class="text-red-600 font-bold">Invalid input. Please ensure all values are greater than zero.</p>`;
           showModal();
           return;
         }
@@ -143,6 +152,8 @@
           gc: 10.0,
           mcl: 0.5,
           cl: 10.0,
+          es: 12.5,
+          mes: 1.25,
         };
 
         const tickValue = tickValues[contract];
